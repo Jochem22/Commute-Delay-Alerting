@@ -29,7 +29,6 @@ class Alerting:
     route_description : int
         short description of route
     """
-
     def __init__(self, max_delay, origin, destination, duration_realtime, duration_delay, distance_static, distance_realtime, route_description):
         self.max_delay = max_delay
         self.origin = origin
