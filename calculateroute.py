@@ -3,7 +3,9 @@ import requests
 
 class CalculateRoute:
     """
-    Class to fetch route information from Waze API used to calculate delay or reroute for commute
+    Class to fetch route information from Waze API used to calculate delay or reroute for commute.
+
+    Credits to kovacsbalu for the Waze API function: https://github.com/kovacsbalu/WazeRouteCalculator
 
     Attributes
     ----------
