@@ -1,0 +1,31 @@
+---
+ places:
+   amsterdam:
+     lat: 52.34478884546086
+     lon: 4.857744583683553
+   utrecht:
+     lat: 52.09649204107265
+     lon: 5.08608024075688
+ routes:
+   routea:
+     origin: amsterdam
+     destination: utrecht
+     days:
+       - 0 # 0 = monday, 6 = sunday
+       - 2
+       - 3
+     departure: '08:00' # script monitors route from 2 hours before and 2 hours after departure time
+     distance: 37 # distance of route without reroutes taken from Waze or Google Maps
+     duration: 32 # duration of route without traffic taken from Waze or Google Maps
+   routeb:
+     origin: utrecht
+     destination: amsterdam
+     days:
+       - 0
+       - 2
+       - 3
+     departure: '17:00'
+     distance: 37
+     duration: 31
+ settings:
+   max_delay: 5 # threshold in minutes to send delay alert
