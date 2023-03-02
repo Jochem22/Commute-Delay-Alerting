@@ -1,9 +1,10 @@
 # Commute Delay Alerting
 
 This scripts monitors your commute set in config.yaml and sends alerts when there is a delay or reroute found on your
-route. The Telegram API is used to send the alerts. Waze API is used to calculate delays or reroutes on the specified routes.
-I use this script to leave early when first delay alert is received or leave when all alerts are cleared to avoid traffic 
-jams on my route. This keeps me from checking Waze or Google Maps for traffic jams manually.
+route. Alerts are send once at start of delay or when reroute is detected. Final alert is send when delay or reroute is 
+cleared. The Telegram API is used to send the alerts. Waze API is used to calculate delays or reroutes on the specified 
+routes. I use this script to leave early when first delay alert is received or leave when all alerts are cleared to avoid 
+traffic jams on my route. This keeps me from checking Waze or Google Maps for traffic jams manually.
 
 ## Installation
 
