@@ -6,7 +6,7 @@ cleared. The Telegram API is used to send the alerts. Waze API is used to calcul
 routes. I use this script to leave early when first delay alert is received or leave when all alerts are cleared to avoid 
 traffic jams on my route. This keeps me from checking Waze or Google Maps for traffic jams manually.
 
-![image](https://user-images.githubusercontent.com/25078202/222750899-a88005ee-1777-453d-8c75-736f37d973b3.png)
+![image](https://user-images.githubusercontent.com/25078202/222750899-a88005ee-1777-453d-8c75-736f37d973b3.png){width=50% height=50%}
 
 
 ## Installation
@@ -21,7 +21,7 @@ pip install -r requirements.txt
 
 - .env file with telegram API token and chat_id 
   - copy env_example to .env
-  - [generate-telegram-token-for-bot-api](https://medium.com/geekculture/generate-telegram-token-for-bot-api-d26faf9bf064){width=50% height=50%}
+  - [generate-telegram-token-for-bot-api](https://medium.com/geekculture/generate-telegram-token-for-bot-api-d26faf9bf064)
 - coordinates (lat,lon) of origin and destination
   - Open google maps
   - Right-click on place or area on map
