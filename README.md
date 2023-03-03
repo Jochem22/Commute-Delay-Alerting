@@ -21,7 +21,7 @@ pip install -r requirements.txt
 
 - .env file with telegram API token and chat_id 
   - copy env_example to .env
-  - [generate-telegram-token-for-bot-api](https://medium.com/geekculture/generate-telegram-token-for-bot-api-d26faf9bf064)
+  - [generate-telegram-token-for-bot-api](https://medium.com/geekculture/generate-telegram-token-for-bot-api-d26faf9bf064 | width=50% height=50%)
 - coordinates (lat,lon) of origin and destination
   - Open google maps
   - Right-click on place or area on map
