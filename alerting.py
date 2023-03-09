@@ -56,7 +56,7 @@ class Alerting:
     def set_delay(self) -> str:
         """Set message when delay is True"""
         msg = (
-            f"Delay on route from {self.origin} to {self.destination} ({self.route_description}). "
+            f"Delay on route from {self.origin} to {self.destination} ({self.route_description}):%0A%0A"
             f"Current duration is {self.duration_realtime} minutes with {self.duration_delay} minutes delay. "
         )
         return msg
@@ -64,7 +64,7 @@ class Alerting:
     def set_reroute(self) -> str:
         """Set message when reroute is True"""
         msg = (
-            f"Reroute on route from {self.origin} to {self.destination} ({self.route_description}). "
+            f"Reroute on route from {self.origin} to {self.destination} ({self.route_description}):%0A%0A"
             f"New duration is {self.duration_realtime} minutes. "
         )
         return msg
@@ -72,10 +72,25 @@ class Alerting:
     def set_clearing(self) -> str:
         """Set message when delay or reroute alarms are cleared"""
         msg = (
-            f"Cleared alarms for {self.origin} to {self.destination} ({self.route_description}). "
+            f"Cleared alarms for {self.origin} to {self.destination} ({self.route_description}):%0A%0A"
             f"Duration is {self.duration_realtime} minutes. "
         )
         return msg
+
+    def set_update(self, update_type) -> str:
+        """Set message for update on duration"""
+        if "reroute" in update_type:
+            msg = (
+                f"Update on reroute:%0A%0A"
+                f"Current duration is {self.duration_realtime} minutes."
+            )
+            return msg
+        elif "delay" in update_type:
+            msg = (
+                f"Update on delay:%0A%0A"
+                f"Current duration is {self.duration_realtime} minutes."
+            )
+            return msg
 
     @staticmethod
     def send_alert(msg: str) -> None:

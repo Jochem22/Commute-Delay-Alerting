@@ -22,6 +22,7 @@ def main():
         for routes in CONFIG["routes"]:
             route = CONFIG["routes"][routes]
             date = datetime.datetime.now().strftime('%d-%m-%Y')
+            send_updates = CONFIG["settings"]["send_updates"]
             departure_time = route['departure']
             departure_time = f"{date} {departure_time}"
             departure_time = datetime.datetime.strptime(departure_time, '%d-%m-%Y %H:%M') + datetime.timedelta(hours=2)
@@ -69,6 +70,11 @@ def main():
                             reroute_notified = False
                             clear_notified = False
                             msg = Alerting.set_clearing(alerting)
+                        elif reroute_notified is True or delay_notified is True and send_updates is True:
+                            if reroute:
+                                msg = Alerting.set_update(alerting, "reroute")
+                            elif delay:
+                                msg = Alerting.set_update(alerting, "delay")
                         if msg:
                             try:
                                 Alerting.send_alert(msg)
