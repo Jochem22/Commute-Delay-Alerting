@@ -57,24 +57,19 @@ def main():
                         LOGGER.debug(f"delay: {delay}")
                         LOGGER.debug(f"reroute: {reroute}")
                         msg = None
-                        if reroute is True and reroute_notified is False:
-                            reroute_notified = True
-                            clear_notified = True
-                            msg = Alerting.set_reroute(alerting)
-                        elif delay is True and delay_notified is False and reroute is False:
+                        if delay is True and delay_notified is False and reroute_notified is False:
                             delay_notified = True
                             clear_notified = True
                             msg = Alerting.set_delay(alerting)
+                        elif reroute is True and reroute_notified is False and delay_notified is False:
+                            reroute_notified = True
+                            clear_notified = True
+                            msg = Alerting.set_reroute(alerting)
                         elif clear_notified is True and delay is False and reroute is False:
                             delay_notified = False
                             reroute_notified = False
                             clear_notified = False
                             msg = Alerting.set_clearing(alerting)
-                        elif reroute_notified is True or delay_notified is True and send_updates is True:
-                            if reroute:
-                                msg = Alerting.set_update(alerting, "reroute")
-                            elif delay:
-                                msg = Alerting.set_update(alerting, "delay")
                         if msg:
                             try:
                                 Alerting.send_alert(msg)

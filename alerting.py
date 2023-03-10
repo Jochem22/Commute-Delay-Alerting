@@ -77,21 +77,6 @@ class Alerting:
         )
         return msg
 
-    def set_update(self, update_type) -> str:
-        """Set message for update on duration"""
-        if "reroute" in update_type:
-            msg = (
-                f"Update on reroute:%0A%0A"
-                f"Current duration is {self.duration_realtime} minutes."
-            )
-            return msg
-        elif "delay" in update_type:
-            msg = (
-                f"Update on delay:%0A%0A"
-                f"Current duration is {self.duration_realtime} minutes."
-            )
-            return msg
-
     @staticmethod
     def send_alert(msg: str) -> None:
         """Send message to chat_id via Telegram"""
