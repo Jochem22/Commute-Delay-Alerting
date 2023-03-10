@@ -42,7 +42,7 @@ class CalculateRoute:
             "returnGeometries": "false",
             "returnInstructions": "false",
             "timeout": 60000,
-            "nPaths": 0,
+            "nPaths": 2,
             "subscription": "*",
             "options": 'AVOID_TRAILS:t,AVOID_TOLL_ROADS:t,AVOID_FERRIES:t',
         }
@@ -50,7 +50,7 @@ class CalculateRoute:
         if response.status_code == 200:
             if "error" not in response.text:
                 response_json = response.json()
-                response_dict = response_json['response']
+                response_dict = response_json['alternatives']
                 return response_dict
             else:
                 raise Exception(response.text)
@@ -59,10 +59,16 @@ class CalculateRoute:
 
     def calc_route(self) -> [int, int, str]:
         """Returns route information"""
-        route = self.get_route()
-        route_description = route['routeName']
-        duration_realtime = route['totalRouteTime']
-        duration_realtime = int(duration_realtime / 60)
-        results = route['results']
-        distance_realtime = self.distance(results)
-        return duration_realtime, distance_realtime, route_description
+        routes = {}
+        routes_info = self.get_route()
+        for route in routes_info:
+            route_description = route['response']['routeName']
+            duration_realtime = route['response']['totalRouteTime']
+            duration_realtime = int(duration_realtime / 60)
+            results = route['response']['results']
+            distance_realtime = self.distance(results)
+            routes[route_description] = {
+                "duration_realtime": duration_realtime,
+                "distance_realtime": distance_realtime,
+            }
+        return routes

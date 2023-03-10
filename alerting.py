@@ -77,6 +77,14 @@ class Alerting:
         )
         return msg
 
+    def set_update(self) -> str:
+        """Set message for update on duration"""
+        msg = (
+            f"Update on delay:%0A%0A"
+            f"Current duration is {self.duration_realtime} minutes."
+        )
+        return msg
+
     @staticmethod
     def send_alert(msg: str) -> None:
         """Send message to chat_id via Telegram"""

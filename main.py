@@ -15,7 +15,6 @@ def main():
     """
     Check commute for delays or reroute
     """
-    reroute_notified = False
     delay_notified = False
     clear_notified = False
     while True:
@@ -41,35 +40,33 @@ def main():
                         distance_static = route['distance']
                         duration_static = route['duration']
                         LOGGER.info(f"Started monitoring route {origin} ({start}) to {destination} ({end})")
-                        route = CalculateRoute(start, end)
+                        calc_route = CalculateRoute(start, end)
                         try:
-                            duration_realtime, distance_realtime, route_description = route.calc_route()
+                            routes = calc_route.calc_route()
                         except Exception as e:
                             LOGGER.error(e)
                             raise
+                        for route in routes:
+                            if int(routes[route]["distance_realtime"]) == int(distance_static):
+                                duration_realtime = routes[route]["duration_realtime"]
+                                distance_realtime = routes[route]["distance_realtime"]
+                                route_description = route
                         duration_delay = duration_realtime - duration_static
                         max_delay = CONFIG["settings"]["max_delay"]
                         alerting = Alerting(max_delay, origin, destination, duration_realtime, duration_delay,
                                             distance_static, distance_realtime, route_description)
-                        LOGGER.info(vars(alerting))
                         delay = Alerting.check_delay(alerting)
-                        reroute = Alerting.check_reroute(alerting)
-                        LOGGER.debug(f"delay: {delay}")
-                        LOGGER.debug(f"reroute: {reroute}")
                         msg = None
-                        if delay is True and delay_notified is False and reroute_notified is False:
+                        if delay is True and delay_notified is False:
                             delay_notified = True
                             clear_notified = True
                             msg = Alerting.set_delay(alerting)
-                        elif reroute is True and reroute_notified is False and delay_notified is False:
-                            reroute_notified = True
-                            clear_notified = True
-                            msg = Alerting.set_reroute(alerting)
-                        elif clear_notified is True and delay is False and reroute is False:
+                        elif clear_notified is True and delay is False:
                             delay_notified = False
-                            reroute_notified = False
                             clear_notified = False
                             msg = Alerting.set_clearing(alerting)
+                        elif delay_notified is True and send_updates is True:
+                            msg = Alerting.set_update(alerting)
                         if msg:
                             try:
                                 Alerting.send_alert(msg)

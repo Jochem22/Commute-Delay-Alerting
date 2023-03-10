@@ -29,3 +29,4 @@
      duration: 31
  settings:
    max_delay: 5 # threshold in minutes to send delay alert
+   send_updates: False # send update every 5 minutes with current duration
